@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import "dotenv/config"
 import mongoose from "mongoose";
 import { v2 as cloudinary } from "cloudinary";
 import courseRoute from "./routes/course.route.js";

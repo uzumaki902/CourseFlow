@@ -39,6 +39,6 @@ export const createCourse = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ errors: "error creating the course" });
+    res.status(500).json({ errors: "error creating the course" , error: error.message });
   }
 };
