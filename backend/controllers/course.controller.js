@@ -39,6 +39,77 @@ export const createCourse = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ errors: "error creating the course" , error: error.message });
+    res
+      .status(500)
+      .json({ errors: "error creating the course", error: error.message });
+  }
+};
+
+export const updateCourse = async (req, res) => {
+  const { courseId } = req.params;
+  const { title, description, price, image } = req.body;
+  try {
+    const course = await Course.updateOne(
+      { _id: courseId },
+      {
+        title,
+        description,
+        price,
+        image: {
+          public_id: image?.public_id,
+          url: image?.url,
+        },
+      }
+    );
+    res.status(200).json({ message: "Course updated successfully", course });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ errors: "error updating the course", error: error.message });
+  }
+};
+export const deleteCourse = async (req, res) => {
+  const { courseId } = req.params;
+  try {
+    const course = await Course.findOneAndDelete({ _id: courseId });
+    if (!course) {
+      return res.status(404).json({ errors: "Course not found" });
+    }
+    res.status(200).json({ message: "Course deleted successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ errors: "error deleting the course", error: error.message });
+    console.log("error in course deletion", error);
+  }
+};
+export const getCourses = async (req, res) => {
+  try {
+    const courses = await Course.find({});
+    res.status(201).json({ courses });
+  } catch (error) {
+    console.log("error in fetching courses", error);
+    res
+      .status(500)
+      .json({ errors: "error in fetching courses", error: error.message });
+  }
+};
+export const courseDetails = async (req, res) => {
+  const { courseId } = req.params;
+  try {
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ errors: "Course not found" });
+    }
+    res.status(200).json({ course });
+  } catch (error) {
+    console.log("error in fetching course details", error);
+    res
+      .status(500)
+      .json({
+        errors: "error in fetching course details",
+        error: error.message,
+      });
   }
 };
