@@ -1,4 +1,4 @@
-import { User } from "../models/user.model.js";
+import { Admin } from "../models/admin.model.js";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -7,7 +7,7 @@ import { Course } from "../models/course.model.js";
 import { Purchase } from "../models/purchase.model.js";
 
 export const signUp = async (req, res) => {
-  const userSchema = z
+  const adminSchema = z
     .object({
       firstName: z
         .string()
@@ -23,7 +23,7 @@ export const signUp = async (req, res) => {
     .strict();
   try {
     // ✅ validate request body
-    const validatedData = userSchema.safeParse(req.body);
+    const validatedData = adminSchema.safeParse(req.body);
 
     if (!validatedData.success) {
       return res.status(400).json({
@@ -37,22 +37,22 @@ export const signUp = async (req, res) => {
     const { firstName, lastName, email, password } = validatedData.data;
 
     // ✅ check if user exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await Admin.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ errors: "User already exists" });
+      return res.status(400).json({ errors: "Admin already exists" });
     }
 
     // ✅ hash only after validation
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({
+    const newAdmin = await Admin.create({
       firstName,
       lastName,
       email,
       password: hashedPassword,
     });
 
-    res.status(201).json({ message: "Signup succeeded", newUser });
+    res.status(201).json({ message: "Signup succeeded", newAdmin });
   } catch (error) {
     console.log("Error in signup", error);
     res.status(500).json({ errors: "Error in signup", error: error.message });
@@ -62,14 +62,14 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const admin = await Admin.findOne({ email });
 
     // ✅ if user not found
-    if (!user) {
-      return res.status(404).json({ errors: "User does not exist" });
+    if (!admin) {
+      return res.status(404).json({ errors: "Admin does not exist" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, admin.password);
 
     // ✅ if password wrong
     if (!isPasswordValid) {
@@ -77,7 +77,7 @@ export const login = async (req, res) => {
     }
 
     // ✅ generate token
-    const token = jwt.sign({ id: user._id }, config.JWT_USER_PASSWORD, {
+    const token = jwt.sign({ id: admin._id }, config.JWT_ADMIN_PASSWORD, {
       expiresIn: "1h",
     });
     const cookieOptions = {
@@ -93,7 +93,7 @@ export const login = async (req, res) => {
     // ✅ send response (only once)
     return res.status(200).json({
       message: "Login successful",
-      user,
+      admin,
       token,
     });
   } catch (error) {
@@ -104,27 +104,14 @@ export const login = async (req, res) => {
 };
 export const logout = (req, res) => {
   try {
-    res.clearCookie("jwt");
-    res.status(200).json({ message: "Logout successful" });
-  } catch (error) {
-    res.status(500).json({ errors: "Error in logout", error: error.message });
-  }
-};
-export const purchases = async (req, res) => {
-  const userId = req.userId;
-  try {
-    const purchased = await Purchase.find({ userId });
-    let purchasedCourseId = [];
-    for (let i = 0; i < purchased.length; i++) {
-      purchasedCourseId.push(purchased[i].courseId);
+    if (!req.cookies?.jwt) {
+      return res.status(200).json({ message: "Kindly Log In :)" });
     }
-    const courseData = await Course.find({
-      _id: { $in: purchasedCourseId },
-    });
-    res.status(200).json({ purchasedCourseId });
+
+    res.clearCookie("jwt");
+    return res.status(200).json({ message: "Logout successful" });
   } catch (error) {
-    res
-      .status(500)
-      .json({ errors: "Error in fetching purchases", error: error.message });
+    return res.status(500).json({ errors: "Error in logout", error: error.message });
   }
 };
+

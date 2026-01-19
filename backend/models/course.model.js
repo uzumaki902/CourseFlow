@@ -24,6 +24,11 @@ const courseSchema = new mongoose.Schema({
       required: true,
     },
   },
+  creatorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Admin",
+    required: true,
+  },
 });
 
 export const Course = mongoose.model("Course", courseSchema);
