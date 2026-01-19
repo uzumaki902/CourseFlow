@@ -1,5 +1,6 @@
 import { Course } from "../models/course.model.js";
 import { v2 as cloudinary } from "cloudinary";
+import { Purchase } from "../models/purchase.model.js";
 export const createCourse = async (req, res) => {
   const { title, description, price } = req.body;
 
@@ -105,11 +106,33 @@ export const courseDetails = async (req, res) => {
     res.status(200).json({ course });
   } catch (error) {
     console.log("error in fetching course details", error);
+    res.status(500).json({
+      errors: "error in fetching course details",
+      error: error.message,
+    });
+  }
+};
+export const buyCourses = async (req, res) => {
+  const { userId } = req;
+  const { courseId } = req.params;
+
+  try {
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ errors: "course not found" });
+    }
+    const existingPurachase = await Purchase.findOne({ userId, courseId });
+    if (existingPurachase) {
+      return res.status(400).json({ errors: "course already purchased" });
+    }
+    const newPurchase = new Purchase({ userId, courseId });
+    await newPurchase.save();
     res
+      .status(201)
+      .json({ message: "course purchased successfully", newPurchase });
+  } catch (error) {
+    req
       .status(500)
-      .json({
-        errors: "error in fetching course details",
-        error: error.message,
-      });
+      .json({ errors: "error in buying course", error: error.message });
   }
 };

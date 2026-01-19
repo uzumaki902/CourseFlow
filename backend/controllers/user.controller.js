@@ -1,6 +1,9 @@
 import { User } from "../models/user.model.js";
 import { z } from "zod";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import config from "../config.js";
+import { Purchase } from "../models/purchase.model.js";
 
 export const signUp = async (req, res) => {
   const userSchema = z
@@ -72,12 +75,55 @@ export const login = async (req, res) => {
       return res.status(401).json({ errors: "Invalid credentials" });
     }
 
-    // ✅ SUCCESS RESPONSE (this was missing)
+    // ✅ generate token
+    const token = jwt.sign({ id: user._id }, config.JWT_USER_PASSWORD, {
+      expiresIn: "1h",
+    });
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // set secure flag in production
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      sameSite: "Strict",
+    };
+
+    // ✅ set cookie BEFORE sending response
+    res.cookie("jwt", token, cookieOptions);
+
+    // ✅ send response (only once)
     return res.status(200).json({
-      message: "Login success",
+      message: "Login successful",
       user,
+      token,
     });
   } catch (error) {
-    return res.status(500).json({ errors: "Error in login", error: error.message });
+    return res
+      .status(500)
+      .json({ errors: "Error in login", error: error.message });
+  }
+};
+export const logout = (req, res) => {
+  try {
+    res.clearCookie("jwt");
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    res.status(500).json({ errors: "Error in logout", error: error.message });
+  }
+};
+export const purchases = async (req, res) => {
+  const userId = req.userId;
+  try {
+    const purchased = await Purchase.find({ userId });
+    let purchasedCourseId = [];
+    for (let i = 0; i < purchased.length; i++) {
+      purchasedCourseId.push(purchased[i].courseId);
+    }
+    const courseData = await Course.find({
+      _id: { $in: purchasedCourseId },
+    });
+    res.status(200).json({ purchasedCourseId });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ errors: "Error in fetching purchases", error: error.message });
   }
 };
