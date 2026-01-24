@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-
+import axios from "axios";
 import studySvg from "../assets/study.svg";
 import appLogo from "../assets/z.png";
 import logo1 from "../assets/adobe.svg";
@@ -18,9 +18,25 @@ import logo8 from "../assets/python.svg";
 import logo9 from "../assets/react.svg";
 
 const Home = () => {
+  console.log("Home rendered");
+
   const [api, setApi] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+  const fetchCourses = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/v1/course/courses");
+      console.log("Courses fetched:", response.data);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
 
+  fetchCourses(); // ✅ call it ONCE here
+}, []);
+
+
+ 
   useEffect(() => {
     if (api) {
       const interval = setInterval(() => api.scrollNext(), 2500);

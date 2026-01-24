@@ -8,7 +8,7 @@ import userRoute from "./routes/user.route.js";
 import adminRoute from "./routes/admin.route.js";
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
-
+import cors from "cors";
 
 dotenv.config();
 const app = express();
@@ -17,7 +17,7 @@ app.use(
   fileUpload({
     useTempFiles: true,
     tempFileDir: "/tmp/",
-  })
+  }),
 );
 app.use(cookieParser());
 
@@ -30,6 +30,14 @@ try {
 } catch (error) {
   console.log(error);
 }
+app.use(
+  cors({
+    origin: "http://localhost:5184", // your frontend URL
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],   
+  allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/admin", adminRoute);
