@@ -32,8 +32,9 @@ export const createCourse = async (req, res) => {
       image: {
         public_id: cloud_response.public_id,
         url: cloud_response.secure_url,
-        creatorId: adminId,
+       
       },
+       creatorId: adminId,
     };
     const course = await Course.create(courseData);
     res.json({
