@@ -228,7 +228,7 @@ const Home = () => {
               <div className="bg-gradient-to-br from-purple-900/20 to-black border border-purple-800/30 p-10 rounded-2xl hover:border-purple-600/50 transition-all">
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 opacity-20" />
                 <h3 className="text-2xl font-light mb-4">{title}</h3>
-                <p className="text-gray-400">Premium quality education without limits.</p>
+                <p className="text-gray-400">Premium quality education without limits !.</p>
               </div>
             </motion.div>
           ))}
