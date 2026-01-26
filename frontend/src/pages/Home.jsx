@@ -81,10 +81,10 @@ const Home = () => {
 
           <div className="flex items-center gap-4">
             <Button asChild variant="ghost" className="text-gray-400 hover:text-white">
-              <Link to="/login">Sign In</Link>
+              <Link to="/login">Log In</Link>
             </Button>
             <Button asChild className="bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white rounded-full px-8 py-6 shadow-2xl shadow-purple-900/50">
-              <Link to="/signup">Get Started</Link>
+              <Link to="/signup">Sign Up</Link>
             </Button>
           </div>
         </div>
