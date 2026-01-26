@@ -1,40 +1,51 @@
 // ======================= IMPORTS =======================
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import appLogo from "../assets/z.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
+import appLogo from "../assets/z.png";
 
 // ======================= COMPONENT =======================
 const Login = () => {
   // ================= STATE =================
- 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  
+  const [loginStatus, setLoginStatus] = useState("");
   const navigate = useNavigate();
 
   // ================= SUBMIT HANDLER =================
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage("");
+    setLoginStatus("");
+
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/user/login", { email, password }, { withCredentials: true, headers: { "Content-Type": "application/json" } });
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/login",
+        { email, password },
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
       console.log("Login successful", response.data);
-      alert("Login successful!");
-      navigate("/");
-      
+
+      setLoginStatus("Login successful!");
+
+      // ✅ OPTION 1: delay navigation so message renders
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
 
     } catch (error) {
-      if (error.response) {
-        setErrorMessage(error.response.data.errors || "Login failed. Please try again.");
-      }
-
+      setErrorMessage(
+        error.response?.data?.message ||
+        "Login failed. Please try again."
+      );
     }
-
   };
 
   return (
@@ -53,18 +64,15 @@ const Login = () => {
         animate={{ y: 0 }}
       >
         <div className="container mx-auto px-6 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src={appLogo} alt="CourseFlow" className="h-10 w-auto" />
-          </div>
+          <img src={appLogo} alt="CourseFlow" className="h-10" />
 
           <div className="flex items-center gap-4">
-            <Button asChild variant="ghost" className="text-gray-400 hover:text-black">
+            <Button asChild variant="ghost">
               <Link to="/signup">Sign Up</Link>
             </Button>
-
             <Button
               asChild
-              className="bg-linear-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white rounded-full px-8 py-6"
+              className="bg-linear-to-r from-purple-600 to-fuchsia-600 text-white rounded-full px-8 py-6"
             >
               <Link to="/signup">Join Now</Link>
             </Button>
@@ -72,7 +80,7 @@ const Login = () => {
         </div>
       </motion.header>
 
-      {/* ================= SIGNUP SECTION ================= */}
+      {/* ================= LOGIN SECTION ================= */}
       <div className="flex items-center justify-center min-h-screen pt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -80,15 +88,12 @@ const Login = () => {
           transition={{ duration: 0.7 }}
           className="w-full max-w-md"
         >
-          {/* HEADER */}
           <div className="text-center mb-10">
             <img src={appLogo} alt="CourseFlow" className="h-14 mx-auto mb-4" />
           </div>
 
-          {/* SIGNUP CARD */}
-          <div className="bg-white/5 backdrop-blur-2xl border border-purple-800/40 rounded-2xl p-8 shadow-2xl shadow-purple-900/50">
+          <div className="bg-white/5 backdrop-blur-2xl border border-purple-800/40 rounded-2xl p-8 shadow-2xl">
 
-            {/* ================= FORM START ================= */}
             <form onSubmit={handleSubmit} className="space-y-6">
 
               {/* Error Message */}
@@ -98,50 +103,50 @@ const Login = () => {
                 </div>
               )}
 
-           
-
-              {/* Last Name */}
-             
+              {/* Success Message */}
+              {loginStatus && (
+                <div className="bg-green-500/20 border border-green-500/50 text-green-300 px-4 py-3 rounded-xl text-sm">
+                  {loginStatus}
+                </div>
+              )}
 
               {/* Email */}
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-sm mb-2">
                   Email Address
                 </label>
                 <input
                   type="email"
-                  placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-800/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition"
+                  className="w-full px-4 py-3 bg-white/10 border border-purple-800/50 rounded-xl text-white"
+                  required
                 />
               </div>
 
               {/* Password */}
               <div>
-                <label className="block text-gray-300 text-sm font-medium mb-2">
+                <label className="block text-gray-300 text-sm mb-2">
                   Password
                 </label>
                 <input
                   type="password"
-                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-800/50 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition"
+                  className="w-full px-4 py-3 bg-white/10 border border-purple-800/50 rounded-xl text-white"
+                  required
                 />
               </div>
 
-              {/* Submit Button */}
+              {/* Submit */}
               <button
                 type="submit"
-                className="w-full py-4 bg-linear-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl shadow-2xl shadow-purple-900/60 transition-all duration-300 transform hover:scale-[1.02]"
+                className="w-full py-4 bg-linear-to-r from-purple-600 to-fuchsia-600 text-white font-semibold rounded-xl cursor-pointer hover:opacity-90 transition"
               >
                 Log In
               </button>
 
             </form>
-            {/* ================= FORM END ================= */}
-
           </div>
         </motion.div>
       </div>
