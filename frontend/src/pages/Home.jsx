@@ -11,6 +11,13 @@ const Home = () => {
   const [scrolled, setScrolled] = useState(false);
   const [courses, setCourses] = useState([]);
   const scrollContainerRef = useRef(null);
+  const [loggedIn, setLoggedIn] = useState(false);  
+
+
+
+  const handleLogout = async () => {
+     axios.get("http://localhost:3000/api/v1/user/logout", { withCredentials: true });
+  }
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -102,7 +109,7 @@ const Home = () => {
                 </span>
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl leading-relaxed">
-                Master in-demand skills from world-class instructors. Lifetime access. Real projects. Certificates that matter.
+                Master in demand skills from world-class instructors. Lifetime access. Real projects. Certificates that matter.
               </p>
             </div>
 
