@@ -218,7 +218,7 @@ const Home = () => {
 
           <div className="text-center mt-16">
             <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white rounded-full px-10 py-7 text-lg shadow-2xl shadow-purple-900/50">
-              <Link to="/courses">View All Courses</Link>
+              <Link to="/courses">View All Course!</Link>
             </Button>
           </div>
         </div>
