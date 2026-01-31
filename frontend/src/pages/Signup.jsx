@@ -172,7 +172,7 @@ const Signup = () => {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full py-4 bg-linear-to-r from-purple-600 to-fuchsia-600 text-white font-semibold rounded-xl cursor-pointer hover:opacity-90 transition"
+                className="w-full py-4 bg-linear-to-r from-purple-600 to-fuchsia-600 text-white font-semibold rounded-xl cursor-pointer hover:opacity-90 transitioncd"
               >
                 Create Account
               </button>
