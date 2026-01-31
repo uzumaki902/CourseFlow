@@ -34,6 +34,7 @@ const Login = () => {
       console.log("Login successful", response.data);
 
       setLoginStatus("Login successful!");
+      localStorage.setItem("user", JSON.stringify(response.data.token));
 
       // ✅ OPTION 1: delay navigation so message renders
       setTimeout(() => {
