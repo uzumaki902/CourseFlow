@@ -13,6 +13,14 @@ const Home = () => {
   const [courses, setCourses] = useState([]);
   const scrollContainerRef = useRef(null);
   const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem("user");
+    if (token) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
 
 
 
@@ -21,7 +29,7 @@ const Home = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/v1/user/logout", { withCredentials: true });
+      const response = await axios.post("http://localhost:3000/api/v1/user/logout",{}, { withCredentials: true });
       toast.success(response.data.message);
       setLoggedIn(false);
 
@@ -104,13 +112,13 @@ const Home = () => {
             {loggedIn ? (
               <Button
 
-                asChild
+                
                 variant="ghost"
-                className="text-gray-400 hover:text-white"
+                className="text-gray-400 hover:text-blue-950"
                 onClick={handleLogout}
 
               >
-                Logout
+                Log Out
 
               </Button>
             ) : (
