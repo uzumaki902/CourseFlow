@@ -112,19 +112,22 @@ export const logout = (req, res) => {
 };
 export const purchases = async (req, res) => {
   const userId = req.userId;
+
   try {
     const purchased = await Purchase.find({ userId });
+
     let purchasedCourseId = [];
+
     for (let i = 0; i < purchased.length; i++) {
       purchasedCourseId.push(purchased[i].courseId);
     }
     const courseData = await Course.find({
       _id: { $in: purchasedCourseId },
     });
-    res.status(200).json({ purchasedCourseId });
+
+    res.status(200).json({ purchased, courseData });
   } catch (error) {
-    res
-      .status(500)
-      .json({ errors: "Error in fetching purchases", error: error.message });
+    res.status(500).json({ errors: "Error in purchases" });
+    console.log("Error in purchase", error);
   }
 };
