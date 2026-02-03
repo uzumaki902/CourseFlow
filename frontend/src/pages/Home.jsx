@@ -34,7 +34,7 @@ const Home = () => {
       setLoggedIn(false);
 
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error("Logout failed!:", error);
       toast.error(error.response.data || "Logout failed. Please try again.");
 
 
@@ -95,9 +95,7 @@ const Home = () => {
         <div className="container mx-auto px-6 py-6 flex items-center justify-between">
           <motion.div className="flex items-center gap-3" whileHover={{ scale: 1.05 }}>
             <img src={appLogo} alt="CourseFlow" className="h-10 w-auto" />
-            <span className="text-2xl font-light tracking-wider bg-linear-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
-              CourseFlow
-            </span>
+            
           </motion.div>
 
           <nav className="hidden lg:flex items-center gap-12">
