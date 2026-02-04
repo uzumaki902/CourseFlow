@@ -35,7 +35,7 @@ const Home = () => {
 
     } catch (error) {
       console.error("Logout failed!:", error);
-      toast.error(error.response.data || "Logout failed. Please try again.");
+      toast.error(error.response.data || "Logout failed. Please try again!");
 
 
     }
