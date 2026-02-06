@@ -150,7 +150,7 @@ const Home = () => {
           <motion.div initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} className="space-y-10">
             <div className="space-y-6">
               <h1 className="text-6xl lg:text-7xl xl:text-8xl font-light leading-tight">
-                <span className="block">Learn!</span>
+                <span className="block">Learn!!</span>
                 <span className="block font-medium bg-linear-to-r from-purple-400 via-fuchsia-400 to-purple-400 bg-clip-text text-transparent">
                   Without Limits
                 </span>
