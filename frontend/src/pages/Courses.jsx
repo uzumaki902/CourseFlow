@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Search, Home, LogOut, BookOpen, BadgeIndianRupee } from "lucide-react";
 import axios from "axios";
-import appLogo from "../assets/z.png";
+
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -47,7 +47,7 @@ const Courses = () => {
         <motion.aside
           initial={{ x: -100 }}
           animate={{ x: 0 }}
-          className="w-80 bg-gradient-to-b from-purple-900/20 to-black border-r border-purple-800/40 min-h-screen fixed left-0 top-0 z-40 backdrop-blur-xl"
+          className="w-80 bg-linear-to-b from-purple-900/20 to-black border-r border-purple-800/40 min-h-screen fixed left-0 top-0 z-40 backdrop-blur-xl"
         >
           <div className="p-8">
            
@@ -63,7 +63,7 @@ const Courses = () => {
                 <span className="font-medium">Purchases</span>
               </Link>
 
-              <div className="flex items-center gap-4 px-6 py-4 rounded-xl bg-gradient-to-r from-purple-600/30 to-fuchsia-600/30 border border-purple-600">
+              <div className="flex items-center gap-4 px-6 py-4 rounded-xl bg-linear-to-r from-purple-600/30 to-fuchsia-600/30 border border-purple-600">
                 <BookOpen className="w-5 h-5 text-purple-300" />
                 <span className="font-medium text-purple-200">All Courses</span>
               </div>
@@ -80,7 +80,7 @@ const Courses = () => {
         <div className="ml-80 flex-1 p-10">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-12">
             <h1 className="text-5xl font-light mb-6">
-              All <span className="font-medium bg-gradient-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">Courses</span>
+              All <span className="font-medium bg-linear-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">Courses</span>
             </h1>
 
             <div className="relative max-w-2xl">
@@ -141,7 +141,7 @@ const Courses = () => {
                           alt={course.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent" />
                       </div>
                       <div className="p-6 space-y-4">
                         <h3 className="text-xl font-semibold group-hover:text-purple-300 transition">
@@ -152,13 +152,13 @@ const Courses = () => {
                         </p>
 
                         <div className="flex items-center justify-between pt-4 border-t border-purple-800/30">
-                          <span className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
+                          <span className="text-3xl font-bold bg-linear-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
                             ${course.price}
                           </span>
 
                           {/* Buy Now Button → Goes to Buy Page */}
                           <Link to={`/buy/${course._id}`} onClick={(e) => e.stopPropagation()}>
-                            <Button className="bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl px-8 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                            <Button className="bg-linear-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl px-8 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                               Buy Now
                             </Button>
                           </Link>
