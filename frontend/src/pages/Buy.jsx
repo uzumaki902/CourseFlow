@@ -26,6 +26,7 @@ const Buy = () => {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         },
+     
       );
       toast.success(response.data.message || "Course purchased successfully");
       navigate("/purchases");
@@ -36,7 +37,7 @@ const Buy = () => {
         toast.error(error.response.data.errors || "Error in purchasing course");
       } else {
         toast.error(
-          error?.response?.data?.errors ||
+          error?.response?.data?.errors||
             "Something went wrong. Please try again later.",
         );
       }
