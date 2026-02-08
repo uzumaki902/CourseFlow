@@ -137,6 +137,8 @@ export const buyCourses = async (req, res) => {
     if (existingPurachase) {
       return res.status(400).json({ errors: "course already purchased" });
     }
+    //razorpay integration will come here in future
+    
     const newPurchase = new Purchase({ userId, courseId });
     await newPurchase.save();
     res
