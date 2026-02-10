@@ -113,7 +113,7 @@ const Courses = () => {
                     No courses posted by admin yet
                   </h3>
                   <p className="text-gray-500">
-                    New courses will appear here once published.
+                    New courses will appear here once published...
                   </p>
                 </div>
               </div>
@@ -159,7 +159,7 @@ const Courses = () => {
                           {/* Buy Now Button → Goes to Buy Page */}
                           <Link to={`/buy/${course._id}`} onClick={(e) => e.stopPropagation()}>
                             <Button className="bg-linear-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white font-semibold rounded-xl px-8 shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
-                              Buy Now plsss
+                              Buy Now
                             </Button>
                           </Link>
                         </div>
