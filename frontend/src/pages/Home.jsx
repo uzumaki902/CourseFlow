@@ -119,9 +119,7 @@ const Home = () => {
           >
             <Link to="/" className="flex items-center gap-3">
               <img src={appLogo} alt="CourseFlow" className="h-10 w-auto" />
-              <span className="text-2xl font-bold bg-linear-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">
-                CourseFlow
-              </span>
+             
             </Link>
           </motion.div>
 
