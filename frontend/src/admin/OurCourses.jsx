@@ -17,6 +17,7 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { BACKEND_URL } from "../utils/utils";
 
 const OurCourses = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const OurCourses = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://localhost:3000/api/v1/course/courses",
+        `${BACKEND_URL}/course/courses`,
         { withCredentials: true }
       );
       setCourses(response.data.courses || []);
@@ -89,7 +90,7 @@ const OurCourses = () => {
     try {
       setDeleting(true);
       await axios.delete(
-        `http://localhost:3000/api/v1/course/delete/${courseToDelete._id}`,
+        `${BACKEND_URL}/course/delete/${courseToDelete._id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
@@ -143,7 +144,7 @@ const OurCourses = () => {
     try {
       setUpdating(true);
       await axios.put(
-        `http://localhost:3000/api/v1/course/update/${courseToEdit._id}`,
+        `${BACKEND_URL}/course/update/${courseToEdit._id}`,
         {
           title: editFormData.title.trim(),
           description: editFormData.description.trim(),

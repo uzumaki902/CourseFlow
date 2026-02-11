@@ -15,6 +15,7 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { BACKEND_URL } from "../utils/utils";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const Dashboard = () => {
       
       // Fetch all courses
       const response = await axios.get(
-        "http://localhost:3000/api/v1/course/courses"
+        `${BACKEND_URL}/course/courses`
       );
       
       const courses = response.data.courses || [];

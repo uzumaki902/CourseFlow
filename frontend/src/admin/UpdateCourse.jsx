@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { BACKEND_URL } from "../utils/utils";
 
 import {
   ArrowLeft,
@@ -37,7 +38,7 @@ function UpdateCourse() {
   useEffect(() => {
     const fetchCourseData = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000/api/v1/course/${id}`, {
+        const { data } = await axios.get(`${BACKEND_URL}/course/${id}`, {
           withCredentials: true,
         });
         console.log(data);

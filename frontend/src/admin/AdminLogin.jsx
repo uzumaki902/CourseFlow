@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
+import { BACKEND_URL } from "../utils/utils";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const AdminLogin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/login",
+        `${BACKEND_URL}/user/login`,
         { email, password },
         { withCredentials: true }
       );

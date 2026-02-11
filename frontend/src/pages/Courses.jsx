@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Search, Home, LogOut, BookOpen, BadgeIndianRupee } from "lucide-react";
 import axios from "axios";
+import { BACKEND_URL } from "../utils/utils";
+
 
 
 const Courses = () => {
@@ -20,7 +22,7 @@ const Courses = () => {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:3000/api/v1/course/courses", {
+        const response = await axios.get(`${BACKEND_URL}/course/courses`, {
           withCredentials: true,
         });
         setCourses(response.data.courses || []);

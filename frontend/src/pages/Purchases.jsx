@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Home, LogOut, BookOpen, BadgeIndianRupee, ShoppingBag, AlertCircle } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { BACKEND_URL } from "../utils/utils";
 
 const Purchases = () => {
   const [purchases, setPurchases] = useState([]);
@@ -28,7 +29,7 @@ const Purchases = () => {
         setError(null);
 
         const response = await axios.get(
-          "http://localhost:3000/api/v1/user/purchases",
+          `${BACKEND_URL}/user/purchases`,
           {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,

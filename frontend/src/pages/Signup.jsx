@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import appLogo from "../assets/z.png";
+import { BACKEND_URL } from "../utils/utils";
 
 // ======================= COMPONENT =======================
 const Signup = () => {
@@ -26,7 +27,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signup",
+        `${BACKEND_URL}/user/signup`,
         { firstName, lastName, email, password },
         {
           withCredentials: true,
