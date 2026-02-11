@@ -1,1 +1,1 @@
-export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/v1";
+export const BACKEND_URL = "https://courseflow-2-ra50.onrender.com";
