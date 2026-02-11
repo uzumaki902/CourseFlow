@@ -33,7 +33,7 @@ try {
 }
 app.use(
   cors({
-    origin: "http://localhost:5174", // your frontend URL
+    origin: "http://localhost:5175", // your frontend URL
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
