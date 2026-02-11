@@ -9,6 +9,7 @@ import adminRoute from "./routes/admin.route.js";
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import paymentRoute from "./routes/payment.route.js";
 
 dotenv.config();
 const app = express();
@@ -32,7 +33,7 @@ try {
 }
 app.use(
   cors({
-    origin: "http://localhost:5173", // your frontend URL
+    origin: "http://localhost:5174", // your frontend URL
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -41,6 +42,7 @@ app.use(
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/admin", adminRoute);
+app.use("/api/v1/payment", paymentRoute);
 
 cloudinary.config({
   cloud_name: process.env.cloud_name,
