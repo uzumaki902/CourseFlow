@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./pages/home";
-import Login from "./pages/login";
-import Signup from "./pages/signup";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import { Toaster } from "react-hot-toast";
 import Courses from "./pages/Courses";
 import Buy from "./pages/Buy";
