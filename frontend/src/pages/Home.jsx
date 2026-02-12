@@ -168,7 +168,7 @@ const Home = () => {
                   asChild
                   className="bg-linear-to-r from-purple-600 to-fuchsia-600 hover:from-purple-500 hover:to-fuchsia-500 text-white rounded-full px-8 py-6 shadow-2xl shadow-purple-900/50"
                 >
-                  <Link to="/signup">Sign Up</Link>
+                  <Link to="/signup">Sign Up..</Link>
                 </Button>
               </>
             )}
