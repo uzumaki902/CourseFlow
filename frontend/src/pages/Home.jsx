@@ -162,7 +162,7 @@ const Home = () => {
                   variant="ghost"
                   className="text-gray-400 hover:text-white"
                 >
-                  <Link to="/login">Log In</Link>
+                  <Link to="/login">Log In...</Link>
                 </Button>
                 <Button
                   asChild
