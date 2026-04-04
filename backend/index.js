@@ -44,6 +44,22 @@ app.use("/user", userRoute);
 app.use("/admin", adminRoute);
 app.use("/payment", paymentRoute);
 
+// Health check endpoint for debugging
+app.get("/health", (req, res) => {
+  const dbState = mongoose.connection.readyState;
+  const states = { 0: "disconnected", 1: "connected", 2: "connecting", 3: "disconnecting" };
+  res.json({
+    status: "ok",
+    database: states[dbState] || "unknown",
+    env: {
+      MONGO_URI: process.env.MONGO_URI ? "set" : "NOT SET",
+      JWT_USER_PASSWORD: process.env.JWT_USER_PASSWORD ? "set" : "NOT SET",
+      JWT_ADMIN_PASSWORD: process.env.JWT_ADMIN_PASSWORD ? "set" : "NOT SET",
+      NODE_ENV: process.env.NODE_ENV || "NOT SET",
+    },
+  });
+});
+
 cloudinary.config({
   cloud_name: process.env.cloud_name,
   api_key: process.env.api_key,
