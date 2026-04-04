@@ -33,16 +33,16 @@ try {
 }
 app.use(
   cors({
-    origin: "http://localhost:5175", // your frontend URL
+    origin: ["http://localhost:5175", "https://course-flow-alpha.vercel.app"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
-app.use("/api/v1/course", courseRoute);
-app.use("/api/v1/user", userRoute);
-app.use("/api/v1/admin", adminRoute);
-app.use("/api/v1/payment", paymentRoute);
+app.use("/course", courseRoute);
+app.use("/user", userRoute);
+app.use("/admin", adminRoute);
+app.use("/payment", paymentRoute);
 
 cloudinary.config({
   cloud_name: process.env.cloud_name,
