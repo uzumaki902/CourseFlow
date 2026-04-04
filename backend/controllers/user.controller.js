@@ -82,9 +82,9 @@ export const login = async (req, res) => {
     });
     const cookieOptions = {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // set secure flag in production
+      secure: process.env.NODE_ENV === "production",
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      sameSite: "Strict",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
     };
 
     // ✅ set cookie BEFORE sending response
