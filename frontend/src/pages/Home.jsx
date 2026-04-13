@@ -256,7 +256,7 @@ const Home = () => {
               </h1>
               <p className="text-xl text-gray-400 max-w-2xl leading-relaxed">
                 Master in-demand skills from world-class instructors. Lifetime
-                access. Real projects. Certificates that matter.
+                access. Real projects. Certificates that matter the most.
               </p>
             </div>
 
